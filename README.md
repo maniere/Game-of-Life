@@ -17,6 +17,6 @@ Type "c" to clear the screen and pause the animation so you can draw with your m
 Type "spacebar" to un-pause the animation when it's paused, or to pause it when it's running.
 Type "r" to reset the entire stage with a new pattern and text.
 Type any other key to activate the text so that its cells participate in the algorithm.
-You may at any point draw with your mouse to toggle the cell states.  Due to the high frame rate of the animation how you are affecting the algorithm will not be obvious.  It is easiest to draw with your mouse when the animation is paused.
+You may at any point draw with your mouse to toggle the cell states.  Due to the high frame rate of the animation how you are affecting the algorithm will not be obvious.  It is however easy and obvious to draw with your mouse when the animation is paused.
 
 There are many more updates to come, including a simpler version for class.
