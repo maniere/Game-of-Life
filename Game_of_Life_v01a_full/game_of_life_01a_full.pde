@@ -1,7 +1,7 @@
 //*******************************************************************************************
 // Project:  THE GAME OF LIFE
 // Author:   Brian Maniere
-// Date:     June 21, 2016
+// Date:     June 22, 2016
 // Ver:      01a
 // Inspired by a framework Simon Greenwold provided for his Model Based Design class at Yale.
 //*******************************************************************************************
@@ -19,6 +19,7 @@ final int   FR                  = 30;        // framerate in fps
 
 // APPEARANCE CONSTANTS
 final boolean DRAW_GRID         = true;      // flag indicating whether to draw or suppress grid lines
+final color   BACKGROUND_COLOR  = #000000;   // color of the stage background
 final color   GRID_LINE_COLOR   = #200070;   // color of the grid lines
 final color   LIVE_CELL_COLOR   = #AA6622;   // color of an active cell
 final color   CELL_MIN_RED      = 120;       //
@@ -618,7 +619,7 @@ void doIt() {
   if (!mouse_active) { // check is needed to allow for mouse interactions to persist when paused
     applyRules();
   }
-  background(0);
+  background(BACKGROUND_COLOR);
   applyNewValues();
   drawCells();
   if (DRAW_GRID) {
