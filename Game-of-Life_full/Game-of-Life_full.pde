@@ -398,7 +398,7 @@ int         title_y       = 24;
 int[][]     patterns      = new int[][]  {agrLoneDotAssymA, agrLoneDotDiamondFull, agrTwinDotsA, fBaker, fBeaconMaker, fBeehiveFuse, fBoatMaker, fCleanFuse, fCow, fDirtyFuse, fHarvester, fReverseFuse, fSparkFuse, fTwoGliderFuse, fWasherWoman, hslShipsP36, hslP60, hslP22, hslP55, hslP96, icAnvil, icBookend, icBun, icCap, icCover, icDock, icLongBookend, icTable, icTeardrop, mAcorn, mBHeptomino, mBlockAndGlider, mBunnies, mCHeptomino, mDiehard, mFHeptomino, mGlidersByDozen, mHerschel, mMultumInParvo, mOctomino, mPiHeptomino, mRabbits, mRHeptomino, mRPent, mSwitchEngine, mThunderbird, ak47, boatStretcher, butterfly, cheshireCat, electricFence, gliderGun, gun30, prePulsar, queenBee, rePhaser, stairstepHexonimo, wickStretcher, osc101, osc1234, oscAchimsP144, oscAchimsP16, oscAForAll, oscAirForce, oscAlJolson, oscBakersDozen, oscBarberPole, oscBeacon, oscBiPole, oscBlinker, oscBlocker, oscBoss, oscBugP5, oscBugZapperP2, oscCaterer, oscCauldron, oscCentinal, oscChampagneGlass, oscChemist, oscCisBeaconOnAnvil, oscCisBeaconOnTable, oscClawCornersP3, oscClock, oscClockP2, oscCloverleaf, oscCoesP8, oscConfusedEaters, oscCross, oscCupP40, oscDiamondring, oscDinnerTable, oscEaterBlockFrob, oscEaterBoundPond, oscElkies, oscEureka, oscExploder, oscFigure8, oscForeAndBack, oscFountain, oscFourKissesP16, oscFrenchKiss, oscFumarole, oscGlasses, oscGliderBlockCycle, oscGourmet, oscGrayCounter, oscHeavyweightEmulator, oscHertz, oscHustler, osc2Hustlers, oscInterchange, oscJack, oscJam, oscKeys, oscKoksGalaxy, oscLightBulb, oscLightweightEmulator, oscLongBugAP2, oscMalteseCross, oscMazing, oscMiddleweightEmulator, oscMiddleweightVolcano, oscMold, oscMonogram, oscMutteringMoat, oscNegentropy, oscNestP90, oscOctagon, oscPentadecathlon, oscPhoenix, oscPiPortraitor, oscPulsar, oscPump, oscPyrotechnecium, oscQuad, oscQueenBeeShuttle, oscQuiltSquare, oscRelayP60, oscRevolver, oscRoteightor, oscShuttleP54, oscSiesta, oscSkewedQuad, oscSlitheringP6, oscSmiley, oscSnacker, oscSnakePitP2, oscSnakePitP3, oscSnowflakeP16, oscStar, oscToad, oscToadSucker, oscToaster, oscTrafficLight, oscTwinBeesShuttle, oscTwoEaters, oscUnix, oscVBugP2, oscWhirlyP52, pufNoahsArk, pufPuffer, pufPufferP128, pufPulsarTrain, rake2, spcBigHollowFish, spcBigMouthFishLegs, spsBlinkerShip, spsBrain, spsBumblebee, spsCoeShip, spcDiagBunnyA, spcDingleBerries, spsDragon, spsEcologist, spcFatFish, spcFishA, spcFly, spcFlotilla, spcGlider, spcGoatFish, spcHeavyweight, spcHiveNudger, spcHWwSideCar, spcLightweight, spcLobster, spcLongThinFish, spcLongThinFishB, spcMantaRay, spcMiddleweight, spcOrion, spcPi, spcPushalong, spcSchickEngine, spcSnail, spcSparky, spcSpider, spcStarFish1, spcSwan, spcTurtle, spcWeekender, spkPhiSpark};
 
 // GRID VARIABLES
-int         active_y      = TEXT_AREA_HEIGHT;
+int         active_y      = 0;  // the first row in the grid to run the algorithm.  Allows for inactive rows for text, etc..
 
 //************************  SETUP  *****************************
 void setup() {
@@ -599,9 +599,8 @@ void doText(int[][] text) {
   int fontWidth      = 0;  // the width of the current font, in cells
   int cell_x         = 0;  // the current column inhabited by the cell being drawn
   int cell_y         = 0;  // the current row inhabited by the cell being
-  
+    // Set the first active row to the one just below the space we've reserved for text
   active_y = TEXT_AREA_HEIGHT;
-  
     // Sum the widths of the text, as identified by the successive offsets per each font
   for (int i = 0; i < text.length; i++) {
     textWidth += text[i][text[i].length-1];
