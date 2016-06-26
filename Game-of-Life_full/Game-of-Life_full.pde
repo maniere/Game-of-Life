@@ -23,18 +23,14 @@ final int   FR                  = 30;        // framerate in fps
 final boolean DRAW_GRID         = true;      // flag indicating whether to draw or suppress grid lines
 final color   BACKGROUND_COLOR  = #000000;   // color of the stage background
 final color   GRID_LINE_COLOR   = #200070;   // color of the grid lines
-final color   LIVE_CELL_COLOR   = #AA6622;   // color of an newly active cell
 final color   NEW_CELL_COLOR    = color(170, 102, 34);  // color of an newly active cell
 final color   OLD_CELL_COLOR    = color(120, 40, 50);   // color of a persistently active cell
-final int     COLOR_SHIFT_GENS  = 10;         // The number of generations before a cell is considered old 
-final color   CELL_MIN_RED      = 120;       //
-final color   CELL_MIN_GREEN    = 40;        //
-final color   CELL_MIN_BLUE     = 50;        //
+final int     COLOR_SHIFT_GENS  = 10;        // number of generations a cell lives until it's considered old
 final int     TEXT_AREA_HEIGHT  = 20;        // The height of the text area, and therefore the first active row at initialization (the text area is inactive)
 
 // RANDOM BEHAVIOR CONTSSTANTS
 final float RAND_SEED_INIT      = 0.0;       // chance a cell will be alive on start (range 0.0 - 1.0)
-final float RAND_LIFE_INIT      = 0.0;       // chance a cell will randomly change state (range 0.0 - 1.0)
+final float RAND_LIFE_INIT      = 0.0;       // chance a cell will randomly change state (range 0.0 - 1.0). Not used.
 
 // DIRECTIONAL CONSTANTS
 final int   UP                  = 0;
