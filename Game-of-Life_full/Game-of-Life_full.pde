@@ -1,16 +1,18 @@
 //*******************************************************************************************
 // Project:  THE GAME OF LIFE
 // Author:   Brian Maniere
-// Date:     June 23, 2016
-// Ver:      01b
+// Date:     June 26, 2016
+// Ver:      01c
 // Inspired by a framework Simon Greenwold provided for his Model Based Design class at Yale.
 //*******************************************************************************************
+
+boolean debugit = true;
 
 // GLOBAL CONSTANTS
 final int   GRID_WIDTH          = 500;       // pixel width of the grid
 final int   GRID_HEIGHT         = 400;       // pixel height of the grid
-final int   COLS                = 125;       // number of grid rows
-final int   ROWS                = 100;       // number of grid columns
+final int   COLS                = 125;       // number of grid rows. Required: at least as many as the widest pattern.
+final int   ROWS                = 100;       // number of grid columns. Required: at least as many as the tallest pattern.
 final int   MARGIN_TOP          = 16;        // top grid margin in pixels
 final int   MARGIN_RIGHT        = 20;        // right grid margin in pixels
 final int   MARGIN_BOTTOM       = 16;        // bottom grid margin in pixels
@@ -21,11 +23,14 @@ final int   FR                  = 30;        // framerate in fps
 final boolean DRAW_GRID         = true;      // flag indicating whether to draw or suppress grid lines
 final color   BACKGROUND_COLOR  = #000000;   // color of the stage background
 final color   GRID_LINE_COLOR   = #200070;   // color of the grid lines
-final color   LIVE_CELL_COLOR   = #AA6622;   // color of an active cell
+final color   LIVE_CELL_COLOR   = #AA6622;   // color of an newly active cell
+final color   NEW_CELL_COLOR    = color(170, 102, 34);  // color of an newly active cell
+final color   OLD_CELL_COLOR    = color(120, 40, 50);   // color of a persistently active cell
+final int     COLOR_SHIFT_GENS  = 10;         // The number of generations before a cell is considered old 
 final color   CELL_MIN_RED      = 120;       //
 final color   CELL_MIN_GREEN    = 40;        //
 final color   CELL_MIN_BLUE     = 50;        //
-final int     ACTIVE_Y_INIT     = 20;        // The first active row at initialization (the text area is inactive)
+final int     TEXT_AREA_HEIGHT  = 20;        // The height of the text area, and therefore the first active row at initialization (the text area is inactive)
 
 // RANDOM BEHAVIOR CONTSSTANTS
 final float RAND_SEED_INIT      = 0.0;       // chance a cell will be alive on start (range 0.0 - 1.0)
@@ -368,47 +373,36 @@ final int[]   spcWeekender            = new int[] {1,1,1,0,0,0,0,0,0,0,0,0,0,1,1
 final int[]   spkPhiSpark             = new int[] {0,1,1,1,0,1,0,0,0,1,1,0,0,0,1,0,1,1,1,0,5,4};// CELL STATE VARIABLES (stored as 2D arrays: 1=alive, 0=dead)
 
 // VARIABLES TO HOLD THE DATA TO DRAW
-float[][]   cells            = new float[COLS][ROWS]; // current generation of all cells
-float[][]   nextCells        = new float[COLS][ROWS]; // the next generation of all cells
-int  [][]   cellAges         = new int[COLS][ROWS];   // the number of generations each cell has been active
+float[][]   cells         = new float[COLS][ROWS]; // current generation of all cells
+float[][]   nextCells     = new float[COLS][ROWS]; // the next generation of all cells
+int  [][]   cellAges      = new int[COLS][ROWS];   // the number of generations each cell has been active
 
 // THE CALCULTATED PIXEL SIZE OF EACH CELL
 float       cellWidth;
 float       cellHeight;
 
 // UTILITIY VARIABLES
-boolean     pause            = false;  // flag indicating whether to pause execution
-boolean     newClick         = true;   // flag indicating whether the mouse was just clicked
-int         mcx;                       // the column under the active mouse
-int         mcy;                       // the row under the active mouse
-int         mcx_last;                  // the column under the active mouse last generation
-int         mcy_last;                  // the column under the active mouse last generation
-boolean     mouse_active     = false;  // flag indicating whether the mouse is active
+boolean     pause         = false;  // flag indicating whether to pause execution
+boolean     newClick      = true;   // flag indicating whether the mouse was just clicked
+int         mcx;                    // the column under the active mouse
+int         mcy;                    // the row under the active mouse
+int         mcx_last;               // the column under the active mouse last generation
+int         mcy_last;               // the column under the active mouse last generation
+boolean     mouse_active  = false;  // flag indicating whether the mouse is active
 
 // variables for random behavior
 float rand_seed           = RAND_SEED_INIT; // chance a cell will be alive on start (range 0.0 - 1.0)
 float rand_life           = RAND_LIFE_INIT; // chance a cell will randomly change state (range 0.0 - 1.0)
 
 // TEXT CONSTRUCTORS AND POSITIONERS
-int[][]     title           = new int[][]  {t,h,e,ns,g,a,m,e,ns,o,f,ns,l,i,f,e};
-int         title_y         = 24;
+int[][]     title         = new int[][]  {t,h,e,ns,g,a,m,e,ns,o,f,ns,l,i,f,e};
+int         title_y       = 24;
 
 // PATTERN ARRAY CONSTRUCTOR
-int[][]     patterns        = new int[][]  {agrLoneDotAssymA, agrLoneDotDiamondFull, agrTwinDotsA, fBaker, fBeaconMaker, fBeehiveFuse, fBoatMaker, fCleanFuse, fCow, fDirtyFuse, fHarvester, fReverseFuse, fSparkFuse, fTwoGliderFuse, fWasherWoman, hslShipsP36, hslP60, hslP22, hslP55, hslP96, icAnvil, icBookend, icBun, icCap, icCover, icDock, icLongBookend, icTable, icTeardrop, mAcorn, mBHeptomino, mBlockAndGlider, mBunnies, mCHeptomino, mDiehard, mFHeptomino, mGlidersByDozen, mHerschel, mMultumInParvo, mOctomino, mPiHeptomino, mRabbits, mRHeptomino, mRPent, mSwitchEngine, mThunderbird, ak47, boatStretcher, butterfly, cheshireCat, electricFence, gliderGun, gun30, prePulsar, queenBee, rePhaser, stairstepHexonimo, wickStretcher, osc101, osc1234, oscAchimsP144, oscAchimsP16, oscAForAll, oscAirForce, oscAlJolson, oscBakersDozen, oscBarberPole, oscBeacon, oscBiPole, oscBlinker, oscBlocker, oscBoss, oscBugP5, oscBugZapperP2, oscCaterer, oscCauldron, oscCentinal, oscChampagneGlass, oscChemist, oscCisBeaconOnAnvil, oscCisBeaconOnTable, oscClawCornersP3, oscClock, oscClockP2, oscCloverleaf, oscCoesP8, oscConfusedEaters, oscCross, oscCupP40, oscDiamondring, oscDinnerTable, oscEaterBlockFrob, oscEaterBoundPond, oscElkies, oscEureka, oscExploder, oscFigure8, oscForeAndBack, oscFountain, oscFourKissesP16, oscFrenchKiss, oscFumarole, oscGlasses, oscGliderBlockCycle, oscGourmet, oscGrayCounter, oscHeavyweightEmulator, oscHertz, oscHustler, osc2Hustlers, oscInterchange, oscJack, oscJam, oscKeys, oscKoksGalaxy, oscLightBulb, oscLightweightEmulator, oscLongBugAP2, oscMalteseCross, oscMazing, oscMiddleweightEmulator, oscMiddleweightVolcano, oscMold, oscMonogram, oscMutteringMoat, oscNegentropy, oscNestP90, oscOctagon, oscPentadecathlon, oscPhoenix, oscPiPortraitor, oscPulsar, oscPump, oscPyrotechnecium, oscQuad, oscQueenBeeShuttle, oscQuiltSquare, oscRelayP60, oscRevolver, oscRoteightor, oscShuttleP54, oscSiesta, oscSkewedQuad, oscSlitheringP6, oscSmiley, oscSnacker, oscSnakePitP2, oscSnakePitP3, oscSnowflakeP16, oscStar, oscToad, oscToadSucker, oscToaster, oscTrafficLight, oscTwinBeesShuttle, oscTwoEaters, oscUnix, oscVBugP2, oscWhirlyP52, pufNoahsArk, pufPuffer, pufPufferP128, pufPulsarTrain, rake2, spcBigHollowFish, spcBigMouthFishLegs, spsBlinkerShip, spsBrain, spsBumblebee, spsCoeShip, spcDiagBunnyA, spcDingleBerries, spsDragon, spsEcologist, spcFatFish, spcFishA, spcFly, spcFlotilla, spcGlider, spcGoatFish, spcHeavyweight, spcHiveNudger, spcHWwSideCar, spcLightweight, spcLobster, spcLongThinFish, spcLongThinFishB, spcMantaRay, spcMiddleweight, spcOrion, spcPi, spcPushalong, spcSchickEngine, spcSnail, spcSparky, spcSpider, spcStarFish1, spcSwan, spcTurtle, spcWeekender, spkPhiSpark};
-//int[][]     patterns        = new int[][]  {agrLoneDotAssymA, agrLoneDotDiamondFull, agrTwinDotsA};
+int[][]     patterns      = new int[][]  {agrLoneDotAssymA, agrLoneDotDiamondFull, agrTwinDotsA, fBaker, fBeaconMaker, fBeehiveFuse, fBoatMaker, fCleanFuse, fCow, fDirtyFuse, fHarvester, fReverseFuse, fSparkFuse, fTwoGliderFuse, fWasherWoman, hslShipsP36, hslP60, hslP22, hslP55, hslP96, icAnvil, icBookend, icBun, icCap, icCover, icDock, icLongBookend, icTable, icTeardrop, mAcorn, mBHeptomino, mBlockAndGlider, mBunnies, mCHeptomino, mDiehard, mFHeptomino, mGlidersByDozen, mHerschel, mMultumInParvo, mOctomino, mPiHeptomino, mRabbits, mRHeptomino, mRPent, mSwitchEngine, mThunderbird, ak47, boatStretcher, butterfly, cheshireCat, electricFence, gliderGun, gun30, prePulsar, queenBee, rePhaser, stairstepHexonimo, wickStretcher, osc101, osc1234, oscAchimsP144, oscAchimsP16, oscAForAll, oscAirForce, oscAlJolson, oscBakersDozen, oscBarberPole, oscBeacon, oscBiPole, oscBlinker, oscBlocker, oscBoss, oscBugP5, oscBugZapperP2, oscCaterer, oscCauldron, oscCentinal, oscChampagneGlass, oscChemist, oscCisBeaconOnAnvil, oscCisBeaconOnTable, oscClawCornersP3, oscClock, oscClockP2, oscCloverleaf, oscCoesP8, oscConfusedEaters, oscCross, oscCupP40, oscDiamondring, oscDinnerTable, oscEaterBlockFrob, oscEaterBoundPond, oscElkies, oscEureka, oscExploder, oscFigure8, oscForeAndBack, oscFountain, oscFourKissesP16, oscFrenchKiss, oscFumarole, oscGlasses, oscGliderBlockCycle, oscGourmet, oscGrayCounter, oscHeavyweightEmulator, oscHertz, oscHustler, osc2Hustlers, oscInterchange, oscJack, oscJam, oscKeys, oscKoksGalaxy, oscLightBulb, oscLightweightEmulator, oscLongBugAP2, oscMalteseCross, oscMazing, oscMiddleweightEmulator, oscMiddleweightVolcano, oscMold, oscMonogram, oscMutteringMoat, oscNegentropy, oscNestP90, oscOctagon, oscPentadecathlon, oscPhoenix, oscPiPortraitor, oscPulsar, oscPump, oscPyrotechnecium, oscQuad, oscQueenBeeShuttle, oscQuiltSquare, oscRelayP60, oscRevolver, oscRoteightor, oscShuttleP54, oscSiesta, oscSkewedQuad, oscSlitheringP6, oscSmiley, oscSnacker, oscSnakePitP2, oscSnakePitP3, oscSnowflakeP16, oscStar, oscToad, oscToadSucker, oscToaster, oscTrafficLight, oscTwinBeesShuttle, oscTwoEaters, oscUnix, oscVBugP2, oscWhirlyP52, pufNoahsArk, pufPuffer, pufPufferP128, pufPulsarTrain, rake2, spcBigHollowFish, spcBigMouthFishLegs, spsBlinkerShip, spsBrain, spsBumblebee, spsCoeShip, spcDiagBunnyA, spcDingleBerries, spsDragon, spsEcologist, spcFatFish, spcFishA, spcFly, spcFlotilla, spcGlider, spcGoatFish, spcHeavyweight, spcHiveNudger, spcHWwSideCar, spcLightweight, spcLobster, spcLongThinFish, spcLongThinFishB, spcMantaRay, spcMiddleweight, spcOrion, spcPi, spcPushalong, spcSchickEngine, spcSnail, spcSparky, spcSpider, spcStarFish1, spcSwan, spcTurtle, spcWeekender, spkPhiSpark};
 
 // GRID VARIABLES
-int         active_y        = ACTIVE_Y_INIT;
-
-// PATTERN POSITIONERS // TO DO: AUTOMATE THE CALCS
-int         rpent_x         = 25;
-int         rpent_y         = 78;
-int         glider_x        = 43;
-int         glider_y        = 78;
-int         exploder_x      = 66;
-int         exploder_y      = 78;
-int         pump_x          = 90;
-int         pump_y          = 78;
+int         active_y      = TEXT_AREA_HEIGHT;
 
 //************************  SETUP  *****************************
 void setup() {
@@ -519,7 +513,7 @@ float checkNeighbor(int x, int y, int direction) {
   else if (direction == LEFT || direction == DOWN_LEFT || direction == UP_LEFT) {
     xOffset = -1;
   }
-  // Do wrap-around in X
+    // Do wrap-around in X
   xNei = x + xOffset;
   if (xNei < 0) {
     xNei = COLS - 1;
@@ -527,7 +521,7 @@ float checkNeighbor(int x, int y, int direction) {
   else if (xNei >= COLS) {
     xNei = 0;
   }
-  // Do wrap-around in Y
+    // Do wrap-around in Y
   yNei = y + yOffset;
   if (yNei < (0 + active_y)) {
     yNei = ROWS - 1;
@@ -572,14 +566,16 @@ void drawCells() {
 // ************************ DRAW ONE CELL ***************************
 void drawCell(int x, int y) {
   color generationColor;
-  if (cells[x][y] != 0.0) {
-     // This color formula fades the color darker as a cell is alive for more generations
+  if (cells[x][y] == 1.0) {
+     // Shift the cell color from NEW_CELL_COLOR to OLD_CELL_COLOR as it's alive for successive generations
+    int shiftFactor = min(COLOR_SHIFT_GENS, cellAges[x][y]);
     generationColor = color(
-      max(CELL_MIN_RED, red(LIVE_CELL_COLOR) - 4*cellAges[x][y]),
-      max(CELL_MIN_GREEN, green(LIVE_CELL_COLOR) - 4*cellAges[x][y]),
-      max(CELL_MIN_BLUE, blue(LIVE_CELL_COLOR) - 4*cellAges[x][y]));
-    fill(generationColor);
+      red(NEW_CELL_COLOR) - shiftFactor * (red(NEW_CELL_COLOR) - red(OLD_CELL_COLOR)) / COLOR_SHIFT_GENS,
+      green(NEW_CELL_COLOR) - shiftFactor * (green(NEW_CELL_COLOR) - green(OLD_CELL_COLOR)) / COLOR_SHIFT_GENS,
+      blue(NEW_CELL_COLOR) - shiftFactor * (blue(NEW_CELL_COLOR) - blue(OLD_CELL_COLOR)) / COLOR_SHIFT_GENS
+    );
     noStroke();
+    fill(generationColor);
     rect(cellWidth * x + MARGIN_LEFT, cellHeight * y + MARGIN_TOP, cellWidth, cellHeight);
   }
 }
@@ -608,7 +604,7 @@ void doText(int[][] text) {
   int cell_x         = 0;  // the current column inhabited by the cell being drawn
   int cell_y         = 0;  // the current row inhabited by the cell being
   
-  active_y = ACTIVE_Y_INIT;
+  active_y = TEXT_AREA_HEIGHT;
   
     // Sum the widths of the text, as identified by the successive offsets per each font
   for (int i = 0; i < text.length; i++) {
@@ -661,11 +657,11 @@ void doRandomPattern() {
 }
   
 // *************************** DO PATTERN ******************************
-void doPattern(int[] pattern) {
+void doPattern(int[] pattern) { //center the pattern in the active area and draw it
   int pattWidth     = pattern[pattern.length - 2];
   int pattHeight    = pattern[pattern.length - 1];
   int patt_x        = int((COLS - pattWidth) / 2);
-  int patt_y        = ROWS - (int)((ROWS - active_y - pattHeight) / 2) - 1;  // -1?
+  int patt_y        = ROWS - (int)((ROWS - active_y - pattHeight) / 2 - 1);
   int cell_x;
   int cell_y;
   int pattIdx = 0;
