@@ -3,10 +3,6 @@ An Interactive version of Conway's Game of Life, in Processing.
 
 The Game of Life is a simple cellular automaton "zero player game" that once set up evolves naturally based on its own simple logic.  It was devised by the mathematician James Conway.  This version comes pre-populated with many of the patterns that have been discovered lead to interesting results.  It also expands the game to include interactivity, allowing "players" to draw patterns of their own, and manipulate the game as it evolves.
 
-For more on the Game of Life, Wikipedia provides a good summary:
-
-https://en.wikipedia.org/wiki/Conways_Game_of_Life
-
 To run the code, copy it into Processing Version 3 or later, and play.  To download the latest version of Processing: http://processing.org.
 
 To interact with the "game":
@@ -21,3 +17,6 @@ To interact with the "game":
 - Draw with your mouse to toggle the cell states.  The animation pauses while your mouse is depressed and resumes upon release.  Pause the animation using "spacebar" first to draw more than once.
 
 The code was designed to be easy to modify and explore creative possibilities.
+
+For more on the Game of Life, Wikipedia provides a good summary:
+https://en.wikipedia.org/wiki/Conways_Game_of_Life
