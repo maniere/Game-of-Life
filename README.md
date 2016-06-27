@@ -7,7 +7,7 @@ For more on the Game of Life, Wikipedia provides a good summary:
 
 https://en.wikipedia.org/wiki/Conways_Game_of_Life
 
-To run the code, copy it into Processing Version 3 or later, and play it there.  Download the latest version of Processing here: http://processing.org.
+To run the code, copy it into Processing Version 3 or later, and play it there.  To download the latest version of Processing: http://processing.org.
 
 To interact with the "game":
 
