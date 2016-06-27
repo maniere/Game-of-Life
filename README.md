@@ -12,9 +12,9 @@ To interact with the "game":
 - Type "spacebar" to pause the animation. Type "spacebar" again to un-pause it.
 - Type "r" to reset the stage to its initial state.
 - Type "c" to clear the stage.
-- Type a number ("0" - "9") to refresh the stage with a percentage of randomly seeded cells.  The result is a percentage of cells 10 times the typed number that start the animation alive ("0" = 0%, "3" = 30%, "9" = 90%).  Future commands execute with this percentage of additional seeds until "r" resets the stage. There are 0 random seeds initially.
-- Type "t" to include the text area in the animation.  Type "t" again to bring it back it.
-- Draw with your mouse to toggle the cell states.  The animation pauses while your mouse is depressed and resumes upon release.  Pause the animation ("spacebar") first to draw more than once.
+- Type a number ("0" - "9") to refresh the stage with a percentage of randomly seeded cells.  The result is a percentage of cells 10 times the typed number that start the animation alive ("0" = 0%, "3" = 30%, "9" = 90%).  Future commands execute with this percentage of additional seeds, until "r" resets the stage. There are 0 random seeds initially.
+- Type "t" to include the text area in the animation.  Type "t" again to bring it back.
+- Draw with your mouse to toggle cell states.  The animation pauses while your mouse is depressed and resumes upon release.  Pause the animation ("spacebar") before drawing to enable multiple strokes.
 
 The code was designed to be easy to modify and explore creative possibilities.
 
