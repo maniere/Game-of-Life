@@ -1,7 +1,7 @@
 # Game-of-Life
 An Interactive version of Conway's Game of Life, in Processing.
 
-The Game of Life is a simple cellular automaton "zero player game" that evolves naturally based on surprisingly simple logic.  It was devised by the mathematician James Conway.  This version comes pre-populated with some of the patterns that lead to interesting results.  It expands the game to include interactivity, allowing "players" to draw patterns of their own, and manipulate the game as it evolves.
+The Game of Life is a simple cellular automaton "zero player game" that evolves on its own based on surprisingly simple logic.  It was devised by the mathematician James Conway.  This version comes pre-populated with some of the patterns that lead to interesting results.  It expands the game to include interactivity, allowing "players" to draw patterns of their own, and manipulate the game as it evolves.
 
 To run the code, copy it into Processing Version 3 or later, and play.  To download the latest version of Processing: http://processing.org.
 
