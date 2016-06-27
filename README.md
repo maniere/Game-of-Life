@@ -16,8 +16,8 @@ Type "l" to generate a pattern of random lines.
 Type "spacebar" to pause the animation. Type it again to un-pause it.
 Type "r" to reset the stage to its initial state.
 Type "c" to clear the stage.
-Type the numeric keys (0 - 9) to refresh the stage with a percentage of randomly seeded cells.  The percentage = 10 * the numeric value (0 = 0%, 3 = 30%).  Commands now execute with additional random seeds until you type "r" to reset the stage.
-Type "t" to include the text area in the animation.  Type it again to reset it.
-Draw with your mouse to toggle the cell states.  The animation pauses while your mouse is depressed and resumes upon release.  Pause the animation using "spacebar" to draw more than once.
+Type a number (0 - 9) to refresh the stage with a percentage of randomly seeded cells.  The result is a percentage of cells 10 times the typed number that start the animation alive (0 = 0%, 3 = 30%).  Future commands execute with these additional random seeds until: type "r" to reset the stage.
+Type "t" to include the text area in the animation.  Type "t" again to reset it.
+Draw with your mouse to toggle the cell states.  The animation pauses while your mouse is depressed and resumes upon release.  Pause the animation using "spacebar" first to draw more than once.
 
 The code was designed to be easy to modify and explore creative possibilities.
