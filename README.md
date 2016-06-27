@@ -18,5 +18,5 @@ To interact with the "game":
 
 The code was designed to be easy to modify and explore creative possibilities.
 
-For more on the Game of Life, Wikipedia provides a good summary:
+For more on the Game of Life, here's a good summary:
 https://en.wikipedia.org/wiki/Conways_Game_of_Life
