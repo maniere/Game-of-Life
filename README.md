@@ -1,7 +1,7 @@
 # Game-of-Life
 An Interactive version of Conway's Game of Life, in Processing.
 
-The Game of Life is a simple cellular automaton "zero player game" that once set up evolves naturally based on its own simple logic.  It was devised by the mathematician James Conway.  This version comes pre-populated with many of the various patterns that have been discovered lead to interesting results.  It also expands the game to include interactivity, allowing "players" to draw patterns of their own, and manipulate the game as it evolves.
+The Game of Life is a simple cellular automaton "zero player game" that once set up evolves naturally based on its own simple logic.  It was devised by the mathematician James Conway.  This version comes pre-populated with many of the patterns that have been discovered lead to interesting results.  It also expands the game to include interactivity, allowing "players" to draw patterns of their own, and manipulate the game as it evolves.
 
 For more on the Game of Life, Wikipedia provides a good summary:
 
