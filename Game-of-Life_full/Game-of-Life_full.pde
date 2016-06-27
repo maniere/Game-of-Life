@@ -1,7 +1,7 @@
 //*******************************************************************************************
 // Project:  THE GAME OF LIFE
 // Author:   Brian Maniere
-// Date:     June 26, 2016
+// Date:     June 27, 2016
 // Ver:      01c
 // Inspired by a framework Simon Greenwold provided for his Model Based Design class at Yale.
 //*******************************************************************************************
@@ -692,17 +692,17 @@ void drawVerticalLine(int xOrig) {
 
 //**********************  RESET CURRENT STAGE  *************************
 public void resetCurrentStage() {
-  killAllCells();
+  killCells(0,0,COLS,ROWS);
   initCells();
   if (active_y != 0) {
     doText(title);
   };
 }
 
-//*************************  KILL ALL CELLS  ***************************
-void killAllCells() {
-  for (int cell_x = 0; cell_x < COLS; cell_x++) {
-    for (int cell_y = 0; cell_y < ROWS; cell_y++) {
+//***************************  KILL CELLS  *****************************
+void killCells(int x0, int y0, int x1, int y2) {
+  for (int cell_x = x0; cell_x < x1; cell_x++) {
+    for (int cell_y = y0; cell_y < y2; cell_y++) {
       cellAges[cell_x][cell_y] = 0;
       cells[cell_x][cell_y] = 0.0;
       nextCells[cell_x][cell_y] = 0.0;
@@ -753,65 +753,86 @@ public void keyPressed() {
   if(key == '0') { // refresh with cells having a 0% chance of being alive
     rand_seed = 0.0;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '1') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.1;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '2') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.2;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '3') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.3;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '4') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.4;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '5') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.5;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '6') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.6;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '7') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.7;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '8') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.8;
     resetCurrentStage();
+    doIt();
   }
   else if(key == '9') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.9;
     resetCurrentStage();
+    doIt();
   }
   else if(key == 'c') { // clear the screen
-    killAllCells();
+    killCells(0,0,COLS,ROWS);
     active_y = 0;
   }
   else if(key == 'l') { // refresh with a line design
     resetCurrentStage();
     doLines();
+    doIt();
   }
   else if(key == 'p') { // refresh with a random pattern
     resetCurrentStage();
     doRandomPattern();
+    doIt();
   }
   else if(key == 'r') { // reset the screen to its original state
-    killAllCells();
+    killCells(0,0,COLS,ROWS);
     rand_seed = RAND_SEED_INIT;
     rand_life = RAND_LIFE_INIT;
     doText(title);
     paused = false;
     doPatternOrLines();
+    doIt();
   }
   else if (key == 't') { // activate the text
-    active_y = 0;
+    if (active_y != 0) {
+      active_y = 0;
+    }
+    else {
+      active_y = TEXT_AREA_HEIGHT;
+      killCells(0,0,COLS,active_y);
+      doText(title);
+    }
+    doIt();
   }
   else if(key == ' ') { // toggle the pause
     if (!paused) {
@@ -821,5 +842,7 @@ public void keyPressed() {
       paused = false;
     }
   }
-  doIt();
+  else if((key == ENTER || key == RETURN) && paused == true) {
+    doIt();
+  }
 }
