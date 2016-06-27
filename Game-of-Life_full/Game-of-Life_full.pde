@@ -76,7 +76,7 @@ final int[] y  = new int[] {1,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,1,0,1,4};
 final int[] z  = new int[] {1,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,1,1,1,5};
 final int[] ns = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4};
 
-// CLASSIC PATTERN CONSTANTS 
+// CLASSIC PATTERN CONSTANTS
   // The second-to-last value in each array defines the display width of the pattern in columns
   // The last value in each array defines the display height of the pattern in rows
 //AGARS
@@ -302,7 +302,7 @@ float       cellWidth;
 float       cellHeight;
 
 // UTILITIY VARIABLES
-boolean     pause         = false;  // flag indicating whether to pause execution
+boolean     paused        = false;  // flag indicating whether to paused execution
 boolean     newClick      = true;   // flag indicating whether the mouse was just clicked
 int         mcx;                    // the column under the active mouse
 int         mcy;                    // the row under the active mouse
@@ -324,7 +324,7 @@ int[][]     patterns      = new int[][]  {agrLoneDotAssymA, agrLoneDotDiamondFul
 // GRID VARIABLES
 int         active_y      = 0;  // the first row in the grid to run the algorithm.  Allows for inactive rows for text, etc..
 
-//************************  SETUP  *****************************
+//****************************  SETUP  *********************************
 void setup() {
   size(400,400); // As of Processing 3 size() no longer accepts variables. The values are temporary placeholders.
   surface.setResizable(true); // surface provides a way to resize the stage using variables
@@ -337,17 +337,17 @@ void setup() {
   doPatternOrLines();
 }
 
-//*************************  DRAW  *****************************
+//*****************************  DRAW  *********************************
 void draw() {
   if (mousePressed == true) {
     interact();
   }
-  if (!pause) {
+  if (!paused) {
     doIt();
   }
 }
 
-//************************ INIT CELLS ****************************
+//**************************  INIT CELLS  ******************************
 void initCells() {
   for (int cell_x = 0; cell_x < COLS; cell_x++) {
     for (int cell_y = 0; cell_y < ROWS; cell_y++) {
@@ -362,7 +362,7 @@ void initCells() {
   }
 }
 
-// ************************* APPLY RULES ***************************
+//**************************  APPLY RULES  *****************************
 void applyRules() {
   for (int cell_x = 0; cell_x < COLS; cell_x++) {
     for (int cell_y = active_y; cell_y < ROWS; cell_y++) {
@@ -371,7 +371,7 @@ void applyRules() {
   }
 }
 
-//********************* APPLY RULES TO CELL **************************
+//**********************  APPLY RULES TO CELL  *************************
   // 1) Stay alive if it haa two or three neighbors, otherwise die
   // 2) Come to life if it has exactly three neighbors
 void applyRulesToCell(int x, int y) {
@@ -404,8 +404,8 @@ void applyRulesToCell(int x, int y) {
   }
 }
 
-//************************ SUM NEIGHBORS ******************************
-  // Sums the states of all neighboring cells. In the typical game, this 
+//*************************  SUM NEIGHBORS  ****************************
+  // Sums the states of all neighboring cells. In the typical game, this
   // is the same as counting the number of living cells that are neighbors
   // (because alive is state 1.0, and dead is state 0.0)
 float sumNeighbors(int x, int y) {
@@ -416,7 +416,7 @@ float sumNeighbors(int x, int y) {
   return sum;
 }
 
-//*********************** CHECK NEIGHBORS *****************************
+//************************  CHECK NEIGHBORS  ***************************
 float checkNeighbor(int x, int y, int direction) {
   int xOffset = 0;
   int yOffset = 0;
@@ -452,7 +452,7 @@ float checkNeighbor(int x, int y, int direction) {
   return cells[xNei][yNei];
 }
 
-// **************************** DO IT ******************************
+//*****************************  DO IT  ********************************
 void doIt() {
   if (!mouse_active) { // check is needed to allow for mouse interactions to persist when paused
     applyRules();
@@ -465,7 +465,7 @@ void doIt() {
   }
 }
 
-// *********************** APPLY NEW VALUES *************************
+//***********************  APPLY NEW VALUES  ***************************
 void applyNewValues() {
   for (int cell_x = 0; cell_x < COLS; cell_x++) {
     for (int cell_y = 0; cell_y < ROWS; cell_y++) {
@@ -474,7 +474,7 @@ void applyNewValues() {
   }
 }
 
-// ************************** DRAW CELLS ****************************
+//**************************  DRAW CELLS  ******************************
 void drawCells() {
   for (int cell_x = 0; cell_x < COLS; cell_x++) {
     for (int cell_y = 0; cell_y < ROWS; cell_y++) {
@@ -483,7 +483,7 @@ void drawCells() {
   }
 }
 
-// ************************ DRAW ONE CELL ***************************
+//*************************  DRAW ONE CELL  ****************************
 void drawCell(int x, int y) {
   color generationColor;
   if (cells[x][y] == 1.0) {
@@ -500,7 +500,7 @@ void drawCell(int x, int y) {
   }
 }
 
-// ************************** DRAW GRID ****************************
+//***************************  DRAW GRID  ******************************
 void drawGrid() {
   noFill();
   stroke(GRID_LINE_COLOR);
@@ -512,7 +512,7 @@ void drawGrid() {
   }
 }
 
-// *************************** DO TEXT *****************************
+//****************************  DO TEXT  *******************************
 void doText(int[][] text) {
   int textWidth      = 0;  // the width, in cells, of the supplied text
   int char_x         = 0;  // the grid column from which to draw the current character
@@ -557,7 +557,7 @@ void doText(int[][] text) {
   }
 }
 
-//*******************  DO PATTERN OR LINES  ***********************
+//**********************  DO PATTERN OR LINES  *************************
 void doPatternOrLines() {
   float random1 = random(1);
   if (random1 < 0.15) { // 15% chance to draw lines
@@ -568,14 +568,14 @@ void doPatternOrLines() {
   }
 }
 
-// ************************ DO RANDOM PATTERN **************************
+//***********************  DO RANDOM PATTERN  **************************
 void doRandomPattern() {
   int randomPattern = (int)(random(patterns.length));
   int pattern[]     = patterns[randomPattern];
   doPattern(pattern);
 }
   
-// *************************** DO PATTERN ******************************
+//***************************  DO PATTERN  *****************************
 void doPattern(int[] pattern) { //center the pattern in the active area and draw it
   int pattWidth     = pattern[pattern.length - 2];
   int pattHeight    = pattern[pattern.length - 1];
@@ -592,9 +592,9 @@ void doPattern(int[] pattern) { //center the pattern in the active area and draw
       pattIdx++;
     }
   }
-}        
+}
 
-//************************   DO LINES  *****************************
+//****************************  DO LINES  ******************************
 void doLines() {
   int num_v;                 // the number of vertical lines
   int num_h;                 // the number of horizontal lines
@@ -617,7 +617,7 @@ void doLines() {
     center_v = true;
   }
   else if (random1 >= .55 && random1 < .70) { // 15% chance horizontal lines will be vertically centered
-    center_h = true; 
+    center_h = true;
   }
   else if (random1 >= .70 && random1 < .85) { // 15% chance vertical lines will be horizontally centered
     center_v = true;
@@ -641,7 +641,7 @@ void doLines() {
       drawVerticalLine(loc);
       i++;
     }
-      // otherwise, either we are not centering the lines or there remains only one left to draw 
+      // otherwise, either we are not centering the lines or there remains only one left to draw
     else {  // draw the line in a random location
       loc = (int)(random(COLS));
       drawVerticalLine(loc);
@@ -664,7 +664,7 @@ void doLines() {
       drawHorizontalLine(loc);
       i++;
     }
-      // otherwise, either we are not centering the lines or there remains only one left to draw 
+      // otherwise, either we are not centering the lines or there remains only one left to draw
     else {
       loc = (int)(random(ROWS - active_y) + active_y);
       drawHorizontalLine(loc);
@@ -672,7 +672,7 @@ void doLines() {
   }
 }
 
-// *********************** DRAW HORIZONTAL LINE **************************
+//**********************  DRAW HORIZONTAL LINE  ************************
 void drawHorizontalLine(int yOrig) {
   int cell_x = 0;
   int cell_y = yOrig;
@@ -681,7 +681,7 @@ void drawHorizontalLine(int yOrig) {
   }
 }
 
-// ************************ DRAW VERTICAL LINE ****************************
+//***********************  DRAW VERTICAL LINE  *************************
 void drawVerticalLine(int xOrig) {
   int cell_x = xOrig;
   int cell_y = active_y;
@@ -690,7 +690,7 @@ void drawVerticalLine(int xOrig) {
   }
 }
 
-//************************* RESET CURRENT STAGE ***************************
+//**********************  RESET CURRENT STAGE  *************************
 public void resetCurrentStage() {
   killAllCells();
   initCells();
@@ -699,7 +699,7 @@ public void resetCurrentStage() {
   };
 }
 
-//**************************** KILL ALL CELLS *****************************
+//*************************  KILL ALL CELLS  ***************************
 void killAllCells() {
   for (int cell_x = 0; cell_x < COLS; cell_x++) {
     for (int cell_y = 0; cell_y < ROWS; cell_y++) {
@@ -710,8 +710,8 @@ void killAllCells() {
   }
 }
 
-//******************************  INTERACT  ********************************
-//******  MOUSE  ********
+//****************************  INTERACT  ******************************
+//**********  MOUSE  ***********
 void interact() {
   mouse_active = true;
   getCell();
@@ -732,14 +732,14 @@ void getCell() {
   //mcy = max((int)(my / cellHeight) - 1, 0);
   mcy = max((int)((my + (3 * cellHeight / 4)) / cellHeight) - 1, 0);
 }
-  
+
 void flipCell() {
   if (cells[mcx][mcy] == 1.0) {
     nextCells[mcx][mcy] = 0.0;
   }
   else {
     nextCells[mcx][mcy] = 1.0;
-  }  
+  }
   doIt();
 }
 
@@ -748,7 +748,7 @@ void mouseReleased() {
   newClick = true;
 }
 
-//*****  KEYBOARD  ******
+//********  KEYBOARD  **********
 public void keyPressed() {
   if(key == '0') { // refresh with cells having a 0% chance of being alive
     rand_seed = 0.0;
@@ -777,7 +777,7 @@ public void keyPressed() {
   else if(key == '6') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.6;
     resetCurrentStage();
-  }  
+  }
   else if(key == '7') { // refresh with cells having a 10% chance of being alive
     rand_seed = 0.7;
     resetCurrentStage();
@@ -807,19 +807,19 @@ public void keyPressed() {
     rand_seed = RAND_SEED_INIT;
     rand_life = RAND_LIFE_INIT;
     doText(title);
-    pause = false;
-    doPatternOrLines();    
+    paused = false;
+    doPatternOrLines();
   }
-  else if (active_y == 't') { // activatce the text
+  else if (key == 't') { // activate the text
     active_y = 0;
   }
   else if(key == ' ') { // toggle the pause
-    if (!pause) {
-      pause = true;
+    if (!paused) {
+      paused = true;
     }
     else {
-      pause = false;
+      paused = false;
     }
   }
-  doIt();  
+  doIt();
 }
