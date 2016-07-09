@@ -7,7 +7,7 @@
 //*******************************************************************************************
 
 // UTILITIES
-final boolean OUTPUT_FOR_JS     = false;     // set true if outputting for processing.js
+final boolean OUTPUT_FOR_JS     = true;      // set true if outputting for processing.js
 // boolean debugit              = true;      // useful for outputting conditional debug messages
 
 // GLOBAL CONSTANTS
@@ -30,7 +30,7 @@ final color   OLD_CELL_COLOR    = color(120, 40, 50);   // color of a persistent
 final int     COLOR_SHIFT_GENS  = 10;        // number of generations a cell lives until it's considered old
 final int     TEXT_AREA_HEIGHT  = 12;        // The height of the text area in cells, and therefore the first active row at initialization (the text area is inactive)
 
-// RANDOM BEHAVIOR CONTSSTANTS
+// RANDOM BEHAVIOR CONSTANTS
 final float RAND_SEED_INIT      = 0.0;       // chance a cell will be alive on start (range 0.0 - 1.0)
 final float RAND_LIFE_INIT      = 0.0;       // chance a cell will randomly change state (range 0.0 - 1.0). Not used.
 
@@ -139,7 +139,6 @@ final int[]   butterfly               = new int[] {0,1,1,1,1,0,1,0,1,1,0,0,1,0,0
 final int[]   cheshireCat             = new int[] {0,1,1,1,1,0,1,0,0,0,0,1,1,0,1,1,0,1,1,0,0,0,0,1,0,1,1,1,1,0,0,1,0,0,1,0,6,6};
 final int[]   electricFence           = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,1,1,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,1,0,1,0,0,1,0,1,0,0,1,1,0,0,1,1,0,1,1,0,1,0,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,1,0,1,0,1,1,0,1,1,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,1,1,0,1,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,0,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,1,1,0,1,0,0,1,1,0,1,0,1,0,0,0,1,0,0,1,1,0,1,0,1,0,0,1,0,1,1,0,0,0,1,1,1,0,1,0,1,0,1,1,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,1,1,1,0,0,0,1,0,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,66,15};
 final int[]   gliderGun               = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,36,9};
-final int[]   gun30                   = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,36,9};
 final int[]   prePulsar               = new int[] {1,1,1,0,0,0,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,0,0,0,1,1,1,9,3};
 final int[]   queenBee                = new int[] {1,0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,1,0,0,1,0,1,1,1,1,1,1,1,1,0,1,0,0,0,0,5,7};
 final int[]   rePhaser                = new int[] {0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,8,7};
@@ -294,6 +293,8 @@ final int[]   spcWeekender            = new int[] {1,1,1,0,0,0,0,0,0,0,0,0,0,1,1
 //SPARKS
 final int[]   spkPhiSpark             = new int[] {0,1,1,1,0,1,0,0,0,1,1,0,0,0,1,0,1,1,1,0,5,4};
 
+//int[] patt = spkPhiSpark; // use this with the conditional in setup() to start with a specific pattern
+
 // CELL STATE VARIABLES (stored as 2D arrays: 1=alive, 0=dead)
 float[][]   cells         = new float[COLS][ROWS]; // current generation of all cells
 float[][]   nextCells     = new float[COLS][ROWS]; // the next generation of all cells
@@ -315,8 +316,9 @@ boolean     mouse_active  = false;  // flag indicating whether the mouse is acti
 // TEXT ARRAY CONSTRUCTOR
 int[][]     title         = new int[][]  {t,h,e,ns,g,a,m,e,ns,o,f,ns,l,i,f,e};
 
-// PATTERN ARRAY CONSTRUCTOR
-int[][]     patterns      = new int[][]  {agrLoneDotAssymA, agrLoneDotDiamondFull, agrTwinDotsA, fBaker, fBeaconMaker, fBeehiveFuse, fBoatMaker, fCleanFuse, fCow, fDirtyFuse, fHarvester, fReverseFuse, fSparkFuse, fTwoGliderFuse, fWasherWoman, hslShipsP36, hslP60, hslP22, hslP55, hslP96, icAnvil, icBookend, icBun, icCap, icCover, icDock, icLongBookend, icTable, icTeardrop, mAcorn, mBHeptomino, mBlockAndGlider, mBunnies, mCHeptomino, mDiehard, mFHeptomino, mGlidersByDozen, mHerschel, mMultumInParvo, mOctomino, mPiHeptomino, mRabbits, mRHeptomino, mRPent, mSwitchEngine, mThunderbird, ak47, boatStretcher, butterfly, cheshireCat, electricFence, gliderGun, gun30, prePulsar, queenBee, rePhaser, stairstepHexonimo, wickStretcher, osc101, osc1234, oscAchimsP144, oscAchimsP16, oscAForAll, oscAirForce, oscAlJolson, oscBakersDozen, oscBarberPole, oscBeacon, oscBiPole, oscBlinker, oscBlocker, oscBoss, oscBugP5, oscBugZapperP2, oscCaterer, oscCauldron, oscCentinal, oscChampagneGlass, oscChemist, oscCisBeaconOnAnvil, oscCisBeaconOnTable, oscClawCornersP3, oscClock, oscClockP2, oscCloverleaf, oscCoesP8, oscConfusedEaters, oscCross, oscCupP40, oscDiamondring, oscDinnerTable, oscEaterBlockFrob, oscEaterBoundPond, oscElkies, oscEureka, oscExploder, oscFigure8, oscForeAndBack, oscFountain, oscFourKissesP16, oscFrenchKiss, oscFumarole, oscGlasses, oscGliderBlockCycle, oscGourmet, oscGrayCounter, oscHeavyweightEmulator, oscHertz, oscHustler, osc2Hustlers, oscInterchange, oscJack, oscJam, oscKeys, oscKoksGalaxy, oscLightBulb, oscLightweightEmulator, oscLongBugAP2, oscMalteseCross, oscMazing, oscMiddleweightEmulator, oscMiddleweightVolcano, oscMold, oscMonogram, oscMutteringMoat, oscNegentropy, oscNestP90, oscOctagon, oscPentadecathlon, oscPhoenix, oscPiPortraitor, oscPulsar, oscPump, oscPyrotechnecium, oscQuad, oscQueenBeeShuttle, oscQuiltSquare, oscRelayP60, oscRevolver, oscRoteightor, oscShuttleP54, oscSiesta, oscSkewedQuad, oscSlitheringP6, oscSmiley, oscSnacker, oscSnakePitP2, oscSnakePitP3, oscSnowflakeP16, oscStar, oscToad, oscToadSucker, oscToaster, oscTrafficLight, oscTwinBeesShuttle, oscTwoEaters, oscUnix, oscVBugP2, oscWhirlyP52, pufNoahsArk, pufPuffer, pufPufferP128, pufPulsarTrain, rake2, spcBigHollowFish, spcBigMouthFishLegs, spsBlinkerShip, spsBrain, spsBumblebee, spsCoeShip, spcDiagBunnyA, spcDingleBerries, spsDragon, spsEcologist, spcFatFish, spcFishA, spcFly, spcFlotilla, spcGlider, spcGoatFish, spcHeavyweight, spcHiveNudger, spcHWwSideCar, spcLightweight, spcLobster, spcLongThinFish, spcLongThinFishB, spcMantaRay, spcMiddleweight, spcOrion, spcPi, spcPushalong, spcSchickEngine, spcSnail, spcSparky, spcSpider, spcStarFish1, spcSwan, spcTurtle, spcWeekender, spkPhiSpark};
+// PATTERN ARRAY CONSTRUCTORS
+int[][]     patterns      = new int[][]  {agrLoneDotAssymA,agrLoneDotDiamondFull,agrTwinDotsA,fBaker,fBeaconMaker,fBeehiveFuse,fBoatMaker,fCleanFuse,fCow,fDirtyFuse,fHarvester,fReverseFuse,fSparkFuse,fTwoGliderFuse,fWasherWoman,hslShipsP36,hslP60,hslP22,hslP55,hslP96,icAnvil,icBookend,icBun,icCap,icCover,icDock,icLongBookend,icTable,icTeardrop,mAcorn,mBHeptomino,mBlockAndGlider,mBunnies,mCHeptomino,mDiehard,mFHeptomino,mGlidersByDozen,mHerschel,mMultumInParvo,mOctomino,mPiHeptomino,mRabbits,mRHeptomino,mRPent,mSwitchEngine,mThunderbird,ak47,boatStretcher,butterfly,cheshireCat,electricFence,gliderGun,prePulsar,queenBee,rePhaser,stairstepHexonimo,wickStretcher,osc101,osc1234,oscAchimsP144,oscAchimsP16,oscAForAll,oscAirForce,oscAlJolson,oscBakersDozen,oscBarberPole,oscBeacon,oscBiPole,oscBlinker,oscBlocker,oscBoss,oscBugP5,oscBugZapperP2,oscCaterer,oscCauldron,oscCentinal,oscChampagneGlass,oscChemist,oscCisBeaconOnAnvil,oscCisBeaconOnTable,oscClawCornersP3,oscClock,oscClockP2,oscCloverleaf,oscCoesP8,oscConfusedEaters,oscCross,oscCupP40,oscDiamondring,oscDinnerTable,oscEaterBlockFrob,oscEaterBoundPond,oscElkies,oscEureka,oscExploder,oscFigure8,oscForeAndBack,oscFountain,oscFourKissesP16,oscFrenchKiss,oscFumarole,oscGlasses,oscGliderBlockCycle,oscGourmet,oscGrayCounter,oscHeavyweightEmulator,oscHertz,oscHustler,osc2Hustlers,oscInterchange,oscJack,oscJam,oscKeys,oscKoksGalaxy,oscLightBulb,oscLightweightEmulator,oscLongBugAP2,oscMalteseCross,oscMazing,oscMiddleweightEmulator,oscMiddleweightVolcano,oscMold,oscMonogram,oscMutteringMoat,oscNegentropy,oscNestP90,oscOctagon,oscPentadecathlon,oscPhoenix,oscPiPortraitor,oscPulsar,oscPump,oscPyrotechnecium,oscQuad,oscQueenBeeShuttle,oscQuiltSquare,oscRelayP60,oscRevolver,oscRoteightor,oscShuttleP54,oscSiesta,oscSkewedQuad,oscSlitheringP6,oscSmiley,oscSnacker,oscSnakePitP2,oscSnakePitP3,oscSnowflakeP16,oscStar,oscToad,oscToadSucker,oscToaster,oscTrafficLight,oscTwinBeesShuttle,oscTwoEaters,oscUnix,oscVBugP2,oscWhirlyP52,pufNoahsArk,pufPuffer,pufPufferP128,pufPulsarTrain,rake2,spcBigHollowFish,spcBigMouthFishLegs,spsBlinkerShip,spsBrain,spsBumblebee,spsCoeShip,spcDiagBunnyA,spcDingleBerries,spsDragon,spsEcologist,spcFatFish,spcFishA,spcFly,spcFlotilla,spcGlider,spcGoatFish,spcHeavyweight,spcHiveNudger,spcHWwSideCar,spcLightweight,spcLobster,spcLongThinFish,spcLongThinFishB,spcMantaRay,spcMiddleweight,spcOrion,spcPi,spcPushalong,spcSchickEngine,spcSnail,spcSparky,spcSpider,spcStarFish1,spcSwan,spcTurtle,spcWeekender,spkPhiSpark};
+int[][]     bestpatterns  = new int[][]  {agrLoneDotAssymA,agrLoneDotDiamondFull,agrTwinDotsA,fCow,fWasherWoman,hslShipsP36,hslP60,hslP22,hslP55,hslP96,mAcorn,mMultumInParvo,mPiHeptomino,mThunderbird,ak47,boatStretcher,electricFence,gliderGun,prePulsar,wickStretcher,osc101,osc1234,oscAchimsP144,oscAchimsP16,oscAForAll,oscAirForce,oscBakersDozen,oscBlocker,oscBoss,oscBugP5,oscBugZapperP2,oscCauldron,oscCentinal,oscChampagneGlass,oscClock,oscCoesP8,oscCross,oscCupP40,oscDiamondring,oscDinnerTable,oscEaterBlockFrob,oscEaterBoundPond,oscElkies,oscEureka,oscExploder,oscFigure8,oscFountain,oscFourKissesP16,oscFumarole,oscGlasses,oscGourmet,oscGrayCounter,oscHeavyweightEmulator,oscHertz,oscHustler,osc2Hustlers,oscJack,oscKeys,oscKoksGalaxy,oscLongBugAP2,oscMalteseCross,oscMazing,oscMiddleweightVolcano,oscMonogram,oscMutteringMoat,oscNegentropy,oscNestP90,oscOctagon,oscPiPortraitor,oscPump,oscPyrotechnecium,oscQueenBeeShuttle,oscQuiltSquare,oscRelayP60,oscRevolver,oscRoteightor,oscShuttleP54,oscSiesta,oscSlitheringP6,oscSmiley,oscSnacker,oscSnakePitP3,oscSnowflakeP16,oscStar,oscToadSucker,oscToaster,oscTwinBeesShuttle,oscUnix,oscVBugP2,oscWhirlyP52,pufNoahsArk,pufPuffer,pufPufferP128,pufPulsarTrain,rake2,spcBigHollowFish,spcBigMouthFishLegs,spsBlinkerShip,spsBrain,spsBumblebee,spsCoeShip,spcDiagBunnyA,spcDingleBerries,spsDragon,spsEcologist,spcFatFish,spcFishA,spcFly,spcHeavyweight,spcHiveNudger,spcHWwSideCar,spcLightweight,spcLobster,spcLongThinFish,spcLongThinFishB,spcMantaRay,spcOrion,spcPushalong,spcSchickEngine,spcSnail,spcSparky,spcSpider,spcStarFish1,spcSwan,spcTurtle,spcWeekender};
 
 // GRID VARIABLES
 int         active_y      = 0;  // the first row in the grid to run the algorithm.  Allows for inactive rows for text, etc..
@@ -337,7 +339,12 @@ void setup() {
   cellHeight = ((float)GRID_HEIGHT) / ROWS;
   initCells();
   doText(title);
-  doPatternOrLines();
+//  if(debugit) { // uncomment this, set debugit and patt (above), and comment out the call to doPatternOrLines (below) to start with a specific pattern
+//    doPattern(patt);
+//  }
+//  else {
+  doPatternOrLines(true); // true specifies to select from the best patterns
+//  }
 }
 
 //*****************************  DRAW  *********************************
@@ -561,20 +568,25 @@ void doText(int[][] text) {
 }
 
 //**********************  DO PATTERN OR LINES  *************************
-void doPatternOrLines() {
+void doPatternOrLines(boolean best) {
   float random1 = random(1);
   if (random1 < 0.15) { // 15% chance to draw lines
     doLines();
   }
   else { // 85% chance to draw a pattern
-    doRandomPattern();
+    doRandomPattern(best);
   }
 }
 
 //***********************  DO RANDOM PATTERN  **************************
-void doRandomPattern() {
-  int randomPattern = (int)(random(patterns.length));
-  int pattern[]     = patterns[randomPattern];
+void doRandomPattern(boolean best) {
+  int pattern[];
+  if (best) {
+    pattern = bestpatterns[(int)(random(bestpatterns.length))];
+  }
+  else {
+    pattern = patterns[(int)(random(patterns.length))];
+  }
   doPattern(pattern);
 }
   
@@ -814,7 +826,7 @@ public void keyPressed() {
   }
   else if(key == 'p') { // refresh with a random pattern
     resetCurrentStage();
-    doRandomPattern();
+    doRandomPattern(false);
     doIt();
   }
   else if(key == 'r') { // reset the screen to its original state
@@ -823,7 +835,7 @@ public void keyPressed() {
     rand_life = RAND_LIFE_INIT;
     doText(title);
     paused = false;
-    doPatternOrLines();
+    doPatternOrLines(true);
     doIt();
   }
   else if (key == 't') { // activate the text
